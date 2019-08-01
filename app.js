@@ -9,5 +9,5 @@ request({url, json:true}, (error, res) => {
     console.log(temperature);   
     console.log(precipProbability);   
 
-    console.log(`It is currently ${temperature} degress out. There is a ${precipProbability}% chance of rain.`)
+    console.log(`It is currently ${temperature} degress out. There is a ${precipProbability}% chance of rain .`)
 });
