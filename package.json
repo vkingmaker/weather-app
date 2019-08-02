@@ -1,11 +1,10 @@
 {
-  "name": "weather-app",
+  "name": "node-server",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "lint": "./node_modules/.bin/eslint *.js",
+    "start": "nodemon app.js -e js,hbs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,6 +14,8 @@
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.2",
+    "express": "^4.17.1",
+    "hbs": "^4.0.4",
     "request": "^2.88.0"
   }
 }
