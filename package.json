@@ -2,20 +2,25 @@
   "name": "node-server",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "build/app.js",
   "scripts": {
-    "start": "nodemon app.js -e js,hbs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:build": "tsc -w",
+    "start:start": "nodemon build/app.js -e js,hbs",
+    "start": "concurrently npm:start:*"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "eslint": "^6.1.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.2",
+    "@types/express": "^4.17.0",
+    "@types/hbs": "^4.0.1",
+    "@types/request": "^2.48.2",
     "express": "^4.17.1",
     "hbs": "^4.0.4",
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.1",
+    "concurrently": "^4.1.1"
   }
 }
