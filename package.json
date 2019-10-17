@@ -4,9 +4,8 @@
   "description": "",
   "main": "build/app.js",
   "scripts": {
-    "start:build": "tsc -w",
-    "start:start": "nodemon build/app.js -e js,hbs",
-    "start": "concurrently npm:start:*"
+    "build": "node_modules/.bin/tsc -pretty -p .",
+    "start": "serverless offline start"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +16,10 @@
     "@types/request": "^2.48.2",
     "express": "^4.17.1",
     "hbs": "^4.0.4",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "serverless-http": "^1.8.0",
+    "serverless-offline": "^3.31.3",
+    "serverless-plugin-typescript-express": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^12.7.1",

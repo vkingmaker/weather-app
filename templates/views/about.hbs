@@ -4,17 +4,27 @@
 
 <head>
     <title>About</title>
-    <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="./img/weather.png">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
+
     <div class="main-content">
-        {{>header}}
-        <img class="portrait" src="/img/me.jpg">
+        <header>
+            <h1>{{title}}</h1>
+
+            <a href="./">Weather</a>
+            <a href="./about">About</a>
+            <a href="./help">Help</a>
+        </header>
+        <img class="portrait"
+            src="https://img1.cgtrader.com/items/672037/a56c8b8d27/robot-woman-d2016-3d-model-low-poly-max-obj-3ds-fbx-stl-mat.jpg">
+        <footer>
+            <p>Created by {{name}}</p>
+        </footer>
     </div>
-    
-    {{>footer}}
+
 </body>
 
 </html>

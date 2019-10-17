@@ -4,28 +4,36 @@
 
 <head>
     <title>Weather</title>
-    <link rel="icon" href="/img/weather.png">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" href="./img/weather.png">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 
 <body>
     <div class="main-content">
-        {{>header}}
+        <header>
+            <h1>{{title}}</h1>
+
+            <a href="./">Weather</a>
+            <a href="./about">About</a>
+            <a href="./help">Help</a>
+        </header>
 
         <p>Use this site to get your weather!</p>
 
         <form>
             <input placeholder="Location">
-            <button>Search</button>
+            <button type="submit">Search</button>
         </form>
 
         <p id="message-1"></p>
         <p id="message-2"></p>
     </div>
 
-    {{>footer}}
+    <footer>
+        <p>Created by {{name}}</p>
+    </footer>
 
-    <script src="/js/app.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 
 </html>

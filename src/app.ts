@@ -1,11 +1,11 @@
 import path from 'path';
 import hbs from 'hbs';
+import serverless from 'serverless-http';
 import express, { Request, Response } from 'express';
 import { geocode } from './utils/geocode';
 import { forecast } from './utils/forecast';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 const publicDirectoryPath = path.join(__dirname, '..', 'public');
 const viewsPath = path.join(__dirname, '../templates/views');
@@ -49,28 +49,25 @@ app.get('/weather', (req: Request, res: Response) => {
     });
   }
 
-  geocode(
-    req.query.address,
-    (error, search): void => {
-      if (error) {
-        res.send({ error });
-        return;
-      }
-      if (search) {
-        forecast(+search.latitude, +search.longitude, (err, forecastData) => {
-          if (err) {
-            return res.send({ err });
-          }
-
-          res.send({
-            forecast: forecastData,
-            location: search.location,
-            address: req.query.address
-          });
-        });
-      }
+  geocode(req.query.address, (error, search): void => {
+    if (error) {
+      res.send({ error });
+      return;
     }
-  );
+    if (search) {
+      forecast(+search.latitude, +search.longitude, (err, forecastData) => {
+        if (err) {
+          return res.send({ err });
+        }
+
+        res.send({
+          forecast: forecastData,
+          location: search.location,
+          address: req.query.address
+        });
+      });
+    }
+  });
 });
 
 app.get('/products', (req: Request, res: Response) => {
@@ -102,6 +99,4 @@ app.get('*', (req: Request, res: Response) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`The server is started at ${PORT}`);
-});
+module.exports.server = serverless(app);
