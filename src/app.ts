@@ -70,19 +70,6 @@ app.get('/weather', (req: Request, res: Response) => {
   });
 });
 
-app.get('/products', (req: Request, res: Response) => {
-  if (!req.query.search) {
-    return res.send({
-      error: 'You must provide a search term'
-    });
-  }
-
-  console.log(req.query.search);
-  res.send({
-    products: []
-  });
-});
-
 app.get('/help/*', (req: Request, res: Response) => {
   res.render('404', {
     title: '404',

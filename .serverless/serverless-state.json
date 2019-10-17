@@ -119,7 +119,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/serverless-weather-app/dev/1571311861313-2019-10-17T11:31:01.313Z/serverless-weather-app.zip"
+                "S3Key": "serverless/serverless-weather-app/dev/1571330792887-2019-10-17T16:46:32.887Z/serverless-weather-app.zip"
               },
               "FunctionName": "serverless-weather-app-dev-app",
               "Handler": "build/app.server",
@@ -138,14 +138,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "AppLambdaVersionfS6YR8e6tuhqIiTtJgHc82nNlH4iTSlQipMkSCtg3vs": {
+          "AppLambdaVersionRS5LzxejzAfkmJeMfymI0onyih6GXJtJ3Zzp2PPerc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AppLambdaFunction"
               },
-              "CodeSha256": "OlyAfcJL+0TcVQi8/NaQH3wLMIBJGhKivzwZ2OxOijY="
+              "CodeSha256": "hEsQY1Q9zNO/m2I7pf1UxS7Zss+qucWA6XkMzzr1QJg="
             }
           },
           "ApiGatewayRestApi": {
@@ -204,33 +204,6 @@
               }
             }
           },
-          "ApiGatewayResourceHelpAnyVar": {
-            "Type": "AWS::ApiGateway::Resource",
-            "Properties": {
-              "ParentId": {
-                "Ref": "ApiGatewayResourceHelp"
-              },
-              "PathPart": "{any+}",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayResourceProducts": {
-            "Type": "AWS::ApiGateway::Resource",
-            "Properties": {
-              "ParentId": {
-                "Fn::GetAtt": [
-                  "ApiGatewayRestApi",
-                  "RootResourceId"
-                ]
-              },
-              "PathPart": "products",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
           "ApiGatewayResourceCss": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
@@ -246,13 +219,13 @@
               }
             }
           },
-          "ApiGatewayResourceCssAnyVar": {
+          "ApiGatewayResourceCssFileVar": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
               "ParentId": {
                 "Ref": "ApiGatewayResourceCss"
               },
-              "PathPart": "{any+}",
+              "PathPart": "{file}",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
@@ -273,13 +246,13 @@
               }
             }
           },
-          "ApiGatewayResourceImgAnyVar": {
+          "ApiGatewayResourceImgFileVar": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
               "ParentId": {
                 "Ref": "ApiGatewayResourceImg"
               },
-              "PathPart": "{any+}",
+              "PathPart": "{file}",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
@@ -300,28 +273,13 @@
               }
             }
           },
-          "ApiGatewayResourceJsAnyVar": {
+          "ApiGatewayResourceJsFileVar": {
             "Type": "AWS::ApiGateway::Resource",
             "Properties": {
               "ParentId": {
                 "Ref": "ApiGatewayResourceJs"
               },
-              "PathPart": "{any+}",
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayResourceProxyVar": {
-            "Type": "AWS::ApiGateway::Resource",
-            "Properties": {
-              "ParentId": {
-                "Fn::GetAtt": [
-                  "ApiGatewayRestApi",
-                  "RootResourceId"
-                ]
-              },
-              "PathPart": "{proxy+}",
+              "PathPart": "{file}",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
@@ -518,7 +476,7 @@
               }
             }
           },
-          "ApiGatewayMethodHelpAnyVarOptions": {
+          "ApiGatewayMethodCssFileVarOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "AuthorizationType": "NONE",
@@ -558,14 +516,14 @@
                 ]
               },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceHelpAnyVar"
+                "Ref": "ApiGatewayResourceCssFileVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodProductsOptions": {
+          "ApiGatewayMethodImgFileVarOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "AuthorizationType": "NONE",
@@ -605,14 +563,14 @@
                 ]
               },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceProducts"
+                "Ref": "ApiGatewayResourceImgFileVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
             }
           },
-          "ApiGatewayMethodCssAnyVarOptions": {
+          "ApiGatewayMethodJsFileVarOptions": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "AuthorizationType": "NONE",
@@ -652,148 +610,7 @@
                 ]
               },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceCssAnyVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodImgAnyVarOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true,
-                    "method.response.header.Access-Control-Allow-Credentials": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
-                      "method.response.header.Access-Control-Allow-Credentials": "'false'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".*\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceImgAnyVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodJsAnyVarOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true,
-                    "method.response.header.Access-Control-Allow-Credentials": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
-                      "method.response.header.Access-Control-Allow-Credentials": "'false'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".*\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceJsAnyVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              }
-            }
-          },
-          "ApiGatewayMethodProxyVarOptions": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "AuthorizationType": "NONE",
-              "HttpMethod": "OPTIONS",
-              "MethodResponses": [
-                {
-                  "StatusCode": "200",
-                  "ResponseParameters": {
-                    "method.response.header.Access-Control-Allow-Origin": true,
-                    "method.response.header.Access-Control-Allow-Headers": true,
-                    "method.response.header.Access-Control-Allow-Methods": true,
-                    "method.response.header.Access-Control-Allow-Credentials": true
-                  },
-                  "ResponseModels": {}
-                }
-              ],
-              "RequestParameters": {},
-              "Integration": {
-                "Type": "MOCK",
-                "RequestTemplates": {
-                  "application/json": "{statusCode:200}"
-                },
-                "ContentHandling": "CONVERT_TO_TEXT",
-                "IntegrationResponses": [
-                  {
-                    "StatusCode": "200",
-                    "ResponseParameters": {
-                      "method.response.header.Access-Control-Allow-Origin": "'*'",
-                      "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE,GET,HEAD,PATCH,POST,PUT'",
-                      "method.response.header.Access-Control-Allow-Credentials": "'false'"
-                    },
-                    "ResponseTemplates": {
-                      "application/json": "#set($origin = $input.params(\"Origin\"))\n#if($origin == \"\") #set($origin = $input.params(\"origin\")) #end\n#if($origin.matches(\".*\")) #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin) #end"
-                    }
-                  }
-                ]
-              },
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceProxyVar"
+                "Ref": "ApiGatewayResourceJsFileVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -843,14 +660,32 @@
                   ]
                 }
               },
-              "MethodResponses": []
-            }
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseModels": {
+                    "text/html": "HTMLResponse"
+                  }
+                },
+                {
+                  "StatusCode": "400",
+                  "ResponseModels": {
+                    "text/html": "HTMLResponse"
+                  }
+                }
+              ]
+            },
+            "DependsOn": [
+              "HTMLResponseModel"
+            ]
           },
           "ApiGatewayMethodWeatherGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "GET",
-              "RequestParameters": {},
+              "RequestParameters": {
+                "method.request.querystring.address": "true"
+              },
               "ResourceId": {
                 "Ref": "ApiGatewayResourceWeather"
               },
@@ -886,7 +721,14 @@
                   ]
                 }
               },
-              "MethodResponses": []
+              "MethodResponses": [
+                {
+                  "StatusCode": "200"
+                },
+                {
+                  "StatusCode": "401"
+                }
+              ]
             }
           },
           "ApiGatewayMethodAboutGet": {
@@ -929,8 +771,18 @@
                   ]
                 }
               },
-              "MethodResponses": []
-            }
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseModels": {
+                    "text/html": "HTMLResponse"
+                  }
+                }
+              ]
+            },
+            "DependsOn": [
+              "HTMLResponseModel"
+            ]
           },
           "ApiGatewayMethodHelpGet": {
             "Type": "AWS::ApiGateway::Method",
@@ -972,16 +824,28 @@
                   ]
                 }
               },
-              "MethodResponses": []
-            }
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseModels": {
+                    "text/html": "HTMLResponse"
+                  }
+                }
+              ]
+            },
+            "DependsOn": [
+              "HTMLResponseModel"
+            ]
           },
-          "ApiGatewayMethodHelpAnyVarGet": {
+          "ApiGatewayMethodCssFileVarGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "GET",
-              "RequestParameters": {},
+              "RequestParameters": {
+                "method.request.path.file": "true"
+              },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceHelpAnyVar"
+                "Ref": "ApiGatewayResourceCssFileVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -1015,16 +879,28 @@
                   ]
                 }
               },
-              "MethodResponses": []
-            }
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseModels": {
+                    "text/css": "CSSResponse"
+                  }
+                }
+              ]
+            },
+            "DependsOn": [
+              "CSSResponseModel"
+            ]
           },
-          "ApiGatewayMethodProductsGet": {
+          "ApiGatewayMethodImgFileVarGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "GET",
-              "RequestParameters": {},
+              "RequestParameters": {
+                "method.request.path.file": "true"
+              },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceProducts"
+                "Ref": "ApiGatewayResourceImgFileVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -1058,16 +934,22 @@
                   ]
                 }
               },
-              "MethodResponses": []
+              "MethodResponses": [
+                {
+                  "StatusCode": "200"
+                }
+              ]
             }
           },
-          "ApiGatewayMethodCssAnyVarGet": {
+          "ApiGatewayMethodJsFileVarGet": {
             "Type": "AWS::ApiGateway::Method",
             "Properties": {
               "HttpMethod": "GET",
-              "RequestParameters": {},
+              "RequestParameters": {
+                "method.request.path.file": "true"
+              },
               "ResourceId": {
-                "Ref": "ApiGatewayResourceCssAnyVar"
+                "Ref": "ApiGatewayResourceJsFileVar"
               },
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
@@ -1101,139 +983,20 @@
                   ]
                 }
               },
-              "MethodResponses": []
-            }
-          },
-          "ApiGatewayMethodImgAnyVarGet": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "HttpMethod": "GET",
-              "RequestParameters": {},
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceImgAnyVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "ApiKeyRequired": false,
-              "AuthorizationType": "NONE",
-              "Integration": {
-                "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
-                "Uri": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":lambda:path/2015-03-31/functions/",
-                      {
-                        "Fn::GetAtt": [
-                          "AppLambdaFunction",
-                          "Arn"
-                        ]
-                      },
-                      "/invocations"
-                    ]
-                  ]
+              "MethodResponses": [
+                {
+                  "StatusCode": "200",
+                  "ResponseModels": {
+                    "text/css": "JSResponse"
+                  }
                 }
-              },
-              "MethodResponses": []
-            }
+              ]
+            },
+            "DependsOn": [
+              "JSResponseModel"
+            ]
           },
-          "ApiGatewayMethodJsAnyVarGet": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "HttpMethod": "GET",
-              "RequestParameters": {},
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceJsAnyVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "ApiKeyRequired": false,
-              "AuthorizationType": "NONE",
-              "Integration": {
-                "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
-                "Uri": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":lambda:path/2015-03-31/functions/",
-                      {
-                        "Fn::GetAtt": [
-                          "AppLambdaFunction",
-                          "Arn"
-                        ]
-                      },
-                      "/invocations"
-                    ]
-                  ]
-                }
-              },
-              "MethodResponses": []
-            }
-          },
-          "ApiGatewayMethodProxyVarAny": {
-            "Type": "AWS::ApiGateway::Method",
-            "Properties": {
-              "HttpMethod": "ANY",
-              "RequestParameters": {},
-              "ResourceId": {
-                "Ref": "ApiGatewayResourceProxyVar"
-              },
-              "RestApiId": {
-                "Ref": "ApiGatewayRestApi"
-              },
-              "ApiKeyRequired": false,
-              "AuthorizationType": "NONE",
-              "Integration": {
-                "IntegrationHttpMethod": "POST",
-                "Type": "AWS_PROXY",
-                "Uri": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition"
-                      },
-                      ":apigateway:",
-                      {
-                        "Ref": "AWS::Region"
-                      },
-                      ":lambda:path/2015-03-31/functions/",
-                      {
-                        "Fn::GetAtt": [
-                          "AppLambdaFunction",
-                          "Arn"
-                        ]
-                      },
-                      "/invocations"
-                    ]
-                  ]
-                }
-              },
-              "MethodResponses": []
-            }
-          },
-          "ApiGatewayDeployment1571311796746": {
+          "ApiGatewayDeployment1571330748515": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -1246,22 +1009,16 @@
               "ApiGatewayMethodWeatherOptions",
               "ApiGatewayMethodAboutOptions",
               "ApiGatewayMethodHelpOptions",
-              "ApiGatewayMethodHelpAnyVarOptions",
-              "ApiGatewayMethodProductsOptions",
-              "ApiGatewayMethodCssAnyVarOptions",
-              "ApiGatewayMethodImgAnyVarOptions",
-              "ApiGatewayMethodJsAnyVarOptions",
-              "ApiGatewayMethodProxyVarOptions",
+              "ApiGatewayMethodCssFileVarOptions",
+              "ApiGatewayMethodImgFileVarOptions",
+              "ApiGatewayMethodJsFileVarOptions",
               "ApiGatewayMethodGet",
               "ApiGatewayMethodWeatherGet",
               "ApiGatewayMethodAboutGet",
               "ApiGatewayMethodHelpGet",
-              "ApiGatewayMethodHelpAnyVarGet",
-              "ApiGatewayMethodProductsGet",
-              "ApiGatewayMethodCssAnyVarGet",
-              "ApiGatewayMethodImgAnyVarGet",
-              "ApiGatewayMethodJsAnyVarGet",
-              "ApiGatewayMethodProxyVarAny"
+              "ApiGatewayMethodCssFileVarGet",
+              "ApiGatewayMethodImgFileVarGet",
+              "ApiGatewayMethodJsFileVarGet"
             ]
           },
           "AppLambdaPermissionApiGateway": {
@@ -1300,6 +1057,39 @@
                 ]
               }
             }
+          },
+          "HTMLResponseModel": {
+            "Type": "AWS::ApiGateway::Model",
+            "Properties": {
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ContentType": "text/html",
+              "Name": "HTMLResponse",
+              "Schema": {}
+            }
+          },
+          "JSResponseModel": {
+            "Type": "AWS::ApiGateway::Model",
+            "Properties": {
+              "RestApiId": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"HTMLResponseModel\"][\"Properties\"][\"RestApiId\"]"
+              },
+              "ContentType": "application/javascript",
+              "Name": "JSResponse",
+              "Schema": {}
+            }
+          },
+          "CSSResponseModel": {
+            "Type": "AWS::ApiGateway::Model",
+            "Properties": {
+              "RestApiId": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"HTMLResponseModel\"][\"Properties\"][\"RestApiId\"]"
+              },
+              "ContentType": "text/css",
+              "Name": "CSSResponse",
+              "Schema": {}
+            }
           }
         },
         "Outputs": {
@@ -1311,7 +1101,7 @@
           "AppLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AppLambdaVersionfS6YR8e6tuhqIiTtJgHc82nNlH4iTSlQipMkSCtg3vs"
+              "Ref": "AppLambdaVersionRS5LzxejzAfkmJeMfymI0onyih6GXJtJ3Zzp2PPerc"
             }
           },
           "ServiceEndpoint": {
@@ -1335,6 +1125,12 @@
                   "/dev"
                 ]
               ]
+            }
+          },
+          "AwsDocApiId": {
+            "Description": "API ID",
+            "Value": {
+              "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"HTMLResponseModel\"][\"Properties\"][\"RestApiId\"]"
             }
           }
         }
@@ -1368,9 +1164,36 @@
       },
       "vpc": {}
     },
+    "custom": {
+      "documentation": {
+        "info": {
+          "version": "1",
+          "name": "Serverless Weather App",
+          "description": "This application enables user to know the weather condition of a given geographical location"
+        },
+        "models": [
+          {
+            "name": "HTMLResponse",
+            "description": "Request successful",
+            "contentType": "text/html"
+          },
+          {
+            "name": "JSResponse",
+            "description": "Request successful",
+            "contentType": "application/javascript"
+          },
+          {
+            "name": "CSSResponse",
+            "description": "Request successful",
+            "contentType": "text/css"
+          }
+        ]
+      }
+    },
     "plugins": [
       "serverless-offline",
-      "serverless-plugin-typescript-express"
+      "serverless-plugin-typescript-express",
+      "serverless-aws-documentation"
     ],
     "pluginsData": {},
     "functions": {
@@ -1400,6 +1223,30 @@
                 ],
                 "allowCredentials": false
               },
+              "documentation": {
+                "summary": "Home page",
+                "description": "Fetches the home page",
+                "methodResponses": [
+                  {
+                    "statusCode": "200",
+                    "responseBody": {
+                      "description": "Successful response"
+                    },
+                    "responseModels": {
+                      "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiGatewayMethodGet\"][\"Properties\"][\"MethodResponses\"][0][\"ResponseModels\"]"
+                    }
+                  },
+                  {
+                    "statusCode": "400",
+                    "responseBody": {
+                      "description": "Resource not found"
+                    },
+                    "responseModels": {
+                      "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiGatewayMethodGet\"][\"Properties\"][\"MethodResponses\"][1][\"ResponseModels\"]"
+                    }
+                  }
+                ]
+              },
               "integration": "AWS_PROXY"
             }
           },
@@ -1425,6 +1272,32 @@
                   "X-Amz-User-Agent"
                 ],
                 "allowCredentials": false
+              },
+              "documentation": {
+                "summary": "Retrieve weather forecast of a given location",
+                "description": "Retrieves a weather forecast for a given address (Geographic location)",
+                "queryParams": [
+                  {
+                    "name": "address",
+                    "description": "Geographic location",
+                    "required": "true",
+                    "in": "query"
+                  }
+                ],
+                "methodResponses": [
+                  {
+                    "statusCode": "200",
+                    "responseBody": {
+                      "description": "Successful response"
+                    }
+                  },
+                  {
+                    "statusCode": "401",
+                    "responseBody": {
+                      "description": "Unauthorized {API key missing}"
+                    }
+                  }
+                ]
               },
               "integration": "AWS_PROXY"
             }
@@ -1452,6 +1325,21 @@
                 ],
                 "allowCredentials": false
               },
+              "documentation": {
+                "summary": "About page",
+                "description": "Fetches the about page",
+                "methodResponses": [
+                  {
+                    "statusCode": "200",
+                    "responseBody": {
+                      "description": "Successful response"
+                    },
+                    "responseModels": {
+                      "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiGatewayMethodAboutGet\"][\"Properties\"][\"MethodResponses\"][0][\"ResponseModels\"]"
+                    }
+                  }
+                ]
+              },
               "integration": "AWS_PROXY"
             }
           },
@@ -1478,12 +1366,27 @@
                 ],
                 "allowCredentials": false
               },
+              "documentation": {
+                "summary": "Help page",
+                "description": "Fetches the help page",
+                "methodResponses": [
+                  {
+                    "statusCode": "200",
+                    "responseBody": {
+                      "description": "Successful response"
+                    },
+                    "responseModels": {
+                      "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiGatewayMethodHelpGet\"][\"Properties\"][\"MethodResponses\"][0][\"ResponseModels\"]"
+                    }
+                  }
+                ]
+              },
               "integration": "AWS_PROXY"
             }
           },
           {
             "http": {
-              "path": "help/{any+}",
+              "path": "css/{file}",
               "method": "get",
               "cors": {
                 "origins": [
@@ -1504,12 +1407,35 @@
                 ],
                 "allowCredentials": false
               },
+              "documentation": {
+                "summary": "stylesheets",
+                "description": "fetches css assets",
+                "pathParams": [
+                  {
+                    "name": "file",
+                    "description": "css file to download",
+                    "required": "true",
+                    "allowValues": "true"
+                  }
+                ],
+                "methodResponses": [
+                  {
+                    "statusCode": "200",
+                    "responseBody": {
+                      "description": "Successful response"
+                    },
+                    "responseModels": {
+                      "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiGatewayMethodCssFileVarGet\"][\"Properties\"][\"MethodResponses\"][0][\"ResponseModels\"]"
+                    }
+                  }
+                ]
+              },
               "integration": "AWS_PROXY"
             }
           },
           {
             "http": {
-              "path": "products",
+              "path": "img/{file}",
               "method": "get",
               "cors": {
                 "origins": [
@@ -1530,12 +1456,32 @@
                 ],
                 "allowCredentials": false
               },
+              "documentation": {
+                "summary": "images",
+                "description": "fetches image assets",
+                "pathParams": [
+                  {
+                    "name": "file",
+                    "description": "images file to download",
+                    "required": "true",
+                    "allowValues": "true"
+                  }
+                ],
+                "methodResponses": [
+                  {
+                    "statusCode": "200",
+                    "responseBody": {
+                      "description": "Successful response"
+                    }
+                  }
+                ]
+              },
               "integration": "AWS_PROXY"
             }
           },
           {
             "http": {
-              "path": "css/{any+}",
+              "path": "js/{file}",
               "method": "get",
               "cors": {
                 "origins": [
@@ -1556,83 +1502,28 @@
                 ],
                 "allowCredentials": false
               },
-              "integration": "AWS_PROXY"
-            }
-          },
-          {
-            "http": {
-              "path": "img/{any+}",
-              "method": "get",
-              "cors": {
-                "origins": [
-                  "*"
+              "documentation": {
+                "summary": "javascript assets",
+                "description": "fetches javascript assets",
+                "pathParams": [
+                  {
+                    "name": "file",
+                    "description": "js file to download",
+                    "required": "true",
+                    "allowValues": "true"
+                  }
                 ],
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "GET"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
-              "integration": "AWS_PROXY"
-            }
-          },
-          {
-            "http": {
-              "path": "js/{any+}",
-              "method": "get",
-              "cors": {
-                "origins": [
-                  "*"
-                ],
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "GET"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
-              },
-              "integration": "AWS_PROXY"
-            }
-          },
-          {
-            "http": {
-              "path": "{proxy+}",
-              "method": "any",
-              "cors": {
-                "origins": [
-                  "*"
-                ],
-                "origin": "*",
-                "methods": [
-                  "OPTIONS",
-                  "ANY"
-                ],
-                "headers": [
-                  "Content-Type",
-                  "X-Amz-Date",
-                  "Authorization",
-                  "X-Api-Key",
-                  "X-Amz-Security-Token",
-                  "X-Amz-User-Agent"
-                ],
-                "allowCredentials": false
+                "methodResponses": [
+                  {
+                    "statusCode": "200",
+                    "responseBody": {
+                      "description": "Successful response"
+                    },
+                    "responseModels": {
+                      "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"ApiGatewayMethodJsFileVarGet\"][\"Properties\"][\"MethodResponses\"][0][\"ResponseModels\"]"
+                    }
+                  }
+                ]
               },
               "integration": "AWS_PROXY"
             }
@@ -1651,7 +1542,7 @@
     "artifact": "/home/vkingmker/Documents/Development/weather-app/serverless-weather-app/.serverless/serverless-weather-app.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/serverless-weather-app/dev/1571311861313-2019-10-17T11:31:01.313Z",
+    "artifactDirectoryName": "serverless/serverless-weather-app/dev/1571330792887-2019-10-17T16:46:32.887Z",
     "artifact": "serverless-weather-app.zip"
   }
 }

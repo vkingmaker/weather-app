@@ -1,6 +1,30 @@
+version: "2019-10-17T14:46:29Z"
+title: serverless-weather-app
 plugins:
   - serverless-offline
   - serverless-plugin-typescript-express
+  - serverless-aws-documentation
+
+custom:
+  documentation:
+    info:
+      version: "1"
+      name: "Serverless Weather App"
+      description: "This application enables user to know the weather condition of a given geographical location"
+    models:
+      -
+        name: "HTMLResponse"
+        description: "Request successful"
+        contentType: "text/html"
+      -
+        name: "JSResponse"
+        description: "Request successful"
+        contentType: "application/javascript"
+      -
+        name: "CSSResponse"
+        description: "Request successful"
+        contentType: "text/css"
+
 service: serverless-weather-app
 provider:
   name: aws
@@ -16,39 +40,123 @@ functions:
           path: /
           method: GET
           cors: "true"
+          documentation:
+            summary: "Home page"
+            description: "Fetches the home page"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseBody:
+                  description: "Successful response"
+                responseModels:
+                  "text/html": HTMLResponse
+              -
+                statusCode: "400"
+                responseBody:
+                  description: "Resource not found"
+                responseModels:
+                  "text/html": HTMLResponse
       - http:
           path: /weather
           method: GET
           cors: "true"
+          documentation:
+            summary: "Retrieve weather forecast of a given location"
+            description: "Retrieves a weather forecast for a given address (Geographic location)"
+            queryParams:
+              - name: "address"
+                description: "Geographic location"
+                required: "true"
+                in: "query"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseBody:
+                  description: "Successful response"
+              -
+                statusCode: "401"
+                responseBody:
+                  description: "Unauthorized {API key missing}"
       - http:
           path: /about
           method: GET
           cors: "true"
+          documentation:
+            summary: "About page"
+            description: "Fetches the about page"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseBody:
+                  description: "Successful response"
+                responseModels:
+                  "text/html": HTMLResponse
       - http:
           path: /help
           method: GET
           cors: "true"
+          documentation:
+            summary: "Help page"
+            description: "Fetches the help page"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseBody:
+                  description: "Successful response"
+                responseModels:
+                  "text/html": HTMLResponse
       - http:
-          path: /help/{any+}
+          path: /css/{file}
           method: GET
           cors: "true"
+          documentation:
+            summary: "stylesheets"
+            description: "fetches css assets"
+            pathParams:
+              - name: "file"
+                description: "css file to download"
+                required: "true"
+                allowValues: "true"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseBody:
+                  description: "Successful response"
+                responseModels:
+                  "text/css": CSSResponse
       - http:
-          path: /products
+          path: /img/{file}
           method: GET
           cors: "true"
+          documentation:
+            summary: "images"
+            description: "fetches image assets"
+            pathParams:
+              - name: "file"
+                description: "images file to download"
+                required: "true"
+                allowValues: "true"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseBody:
+                  description: "Successful response"
       - http:
-          path: /css/{any+}
+          path: /js/{file}
           method: GET
           cors: "true"
-      - http:
-          path: /img/{any+}
-          method: GET
-          cors: "true"
-      - http:
-          path: /js/{any+}
-          method: GET
-          cors: "true"
-      - http:
-          path: /{proxy+}
-          method: ANY
-          cors: "true"
+          documentation:
+            summary: "javascript assets"
+            description: "fetches javascript assets"
+            pathParams:
+              - name: "file"
+                description: "js file to download"
+                required: "true"
+                allowValues: "true"
+            methodResponses:
+              -
+                statusCode: "200"
+                responseBody:
+                  description: "Successful response"
+                responseModels:
+                  "text/css": JSResponse
